@@ -1,20 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import "./FoodBox.css";
 
-const FoodBox = props => {
-    return (
+class FoodBox extends Component {
+    state = {};
+
+    onChangeHandler = event => {
+        const { name, value } = event.target;
+        this.setState(
+          { [name]: value },
+          () => console.log(this.state)
+        );
+    };
+
+    render() {
+        return (
         <div className="box">
             <article className="media">
                 <div className="media-left">
                     <figure className="image is-64x64">
-                        <img src={props.image} alt="food"/>
+                        <img src={this.props.image} alt="food"/>
                     </figure>
                 </div>
                 <div className="media-content">
                     <div className="content">
                         <p>
-                            <strong>{props.name}</strong> <br />
-                            <small>{props.calories} cal</small>
+                            <strong>{this.props.name}</strong> <br />
+                            <small>{this.props.calories} cal</small>
                         </p>
                     </div>
                 </div>
@@ -24,7 +35,8 @@ const FoodBox = props => {
                             <input
                                 className="input"
                                 type="number" 
-                                value={props.quantity}
+                                value={this.props.quantity}
+                                onChange={event => this.onChangeHandler(event)}
                             />
                         </div>
                         <div className="control">
@@ -36,7 +48,8 @@ const FoodBox = props => {
                 </div>
             </article>
         </div>
-    )
+        )
+    }   
 }
 
 export default FoodBox;

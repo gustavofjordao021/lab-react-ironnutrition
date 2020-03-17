@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import FoodBox from './FoodBox/FoodBox';
 import Foods from './foods.json'
-import logo from './logo.svg';
 import 'bulma/css/bulma.css';
 import './App.css';
 import FoodForm from './FoodForm/FoodForm';
@@ -14,18 +13,28 @@ class App extends Component {
     addFood: false
   }
 
-  addFoodFunction = () => {
+  addFoodForm = () => {
     this.setState({
       addFood: true
     });
   }
 
+  addNewFood = newFood => {
+    const foodCopy = [...this.state.allFoods];
+    console.log(newFood)
+    foodCopy.push(newFood);
+    this.setState({
+      allFoods: foodCopy,
+      addFood: false
+    });
+  };
+
   render() {
     return (
       <div className="App">
       <h1>IronNutrition</h1>
-      <button onClick={() => this.addFoodFunction()}>Add new food</button>
-      <FoodForm addFood />
+      <button onClick={() => this.addFoodForm()}>Add new food</button>
+      <FoodForm isShown={this.state.addFood} passedDownAddFood={oneFood => this.addNewFood(oneFood)} />
         {this.state.allFoods.map((oneFood, index) => {
           return <FoodBox key={index} {...oneFood}/>
         })} 
