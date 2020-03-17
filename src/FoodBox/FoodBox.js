@@ -1,4 +1,5 @@
 import React from 'react';
+import "./FoodBox.css";
 
 const FoodBox = props => {
     return (
