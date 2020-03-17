@@ -1,32 +1,49 @@
-import React from 'react';
+import React, {Component} from 'react';
 import "./FoodForm.css";
 
-const FoodForm = props => {
-    return (
-        <div>
-            {/* handleFormSubmit => this is the way we called the method, can be any name */}
-            <form onSubmit={event => this.handleFormSubmit(event)}>
-            <label>
-                ID:
-                <input name='_id' type='text' value={_id} onChange={event => this.onChangeHandler(event)} />
-            </label>
-            <label>
-                Name:
-                <input name='name' type='text' value={name} onChange={event => this.onChangeHandler(event)} />
-            </label>
-            <label>
-                Price:
-                <input name='price' type='number' value={price} onChange={event => this.onChangeHandler(event)} />
-            </label>
-            <label>
-                In Stock:
-                <input name='inStock' type='checkbox' value={inStock} onChange={event => this.onChangeHandler(event)} />
-            </label>
-            <br />
-            <button>Save</button>
-            </form>
-        </div>
-    );
+const DEFAULT_STATE = {
+    "name": "",
+    "calories": 0,
+    "image": "",
+    "quantity": 0
+}
+
+class FoodForm extends Component {
+    state = {...DEFAULT_STATE};
+
+    onChangeHandler = event => {
+        let { name, calories, image } = event.target;
+    
+        this.setState(
+          { [name]: value },
+          () => console.log(this.state)
+        );
+      };
+
+    render() {
+        const {name, calories, image} = this.state;
+        return (
+            <div>
+                {/* handleFormSubmit => this is the way we called the method, can be any name */}
+                <form onSubmit={event => this.handleFormSubmit(event)}>
+                <label>
+                    Name:
+                    <input name='name' type='text' value={name} onChange={event => this.onChangeHandler(event)} />
+                </label>
+                <label>
+                    Calories:
+                    <input name='calories' type='number' value={calories} onChange={event => this.onChangeHandler(event)} />
+                </label>
+                <label>
+                    Image:
+                    <input name='image' type='text' value={image} onChange={event => this.onChangeHandler(event)} />
+                </label>
+                <br />
+                <button>Save</button>
+                </form>
+            </div>
+        );  
+    };
 };
 
 export default FoodForm;
