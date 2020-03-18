@@ -33,9 +33,11 @@ class App extends Component {
   searchFood = foodSearch => {
     if (foodSearch.name !== "") {
       let lowerCaseFoodSearch = foodSearch.name.toLowerCase();
+      console.log(lowerCaseFoodSearch);
       this.setState(prevState => ({
         allFoods: prevState.allFoods.filter(el => el.name.toLowerCase().includes(lowerCaseFoodSearch))
       }));
+      console.log(this.state.allFoods)
     } else {
       this.setState({
         allFoods: [...Foods]

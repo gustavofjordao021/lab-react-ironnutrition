@@ -34,8 +34,9 @@ class FoodBox extends Component {
                         <div className="control">
                             <input
                                 className="input"
-                                type="number" 
-                                value={this.props.quantity}
+                                name={this.props.quantity}
+                                type="number"  
+                                value="0"
                                 onChange={event => this.onChangeHandler(event)}
                             />
                         </div>
