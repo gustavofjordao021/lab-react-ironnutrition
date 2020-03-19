@@ -4,6 +4,10 @@
 
 .container {
   display: flex;
-  align-items: center;
+  align-items: top;
   justify-content: center;
+}
+
+.list-food {
+  width: 600px;
 }

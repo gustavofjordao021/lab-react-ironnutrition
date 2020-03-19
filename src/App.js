@@ -11,6 +11,10 @@ class App extends Component {
     allFoods: [
       ...Foods
     ],
+    baseFoods: [
+      ...Foods
+    ],
+    foodList: [],
     addFood: false
   }
 
@@ -35,7 +39,7 @@ class App extends Component {
       let lowerCaseFoodSearch = foodSearch.name.toLowerCase();
       console.log(lowerCaseFoodSearch);
       this.setState(prevState => ({
-        allFoods: prevState.allFoods.filter(el => el.name.toLowerCase().includes(lowerCaseFoodSearch))
+        allFoods: prevState.baseFoods.filter(el => el.name.toLowerCase().includes(lowerCaseFoodSearch))
       }));
       console.log(this.state.allFoods)
     } else {
@@ -45,18 +49,44 @@ class App extends Component {
     }
   }
 
+  addFoodToList = (foodQuantityForList, foodNameForList, foodCaloriesForList) => {
+    let foodListCopy = [];
+    foodListCopy.push({
+      name: foodNameForList,
+      calories: foodCaloriesForList,
+      quantity: foodQuantityForList
+    })
+    this.setState({
+      foodList: foodListCopy
+    })
+  }
+
   render() {
     return (
       <div className="App">
-      <h1>IronNutrition</h1>
-      <button onClick={() => this.addFoodForm()}>Add new food</button>
-      <div className="container">
-        <FoodSearch passedDownSearchFood={searchedFood => this.searchFood(searchedFood)} />
-        <FoodForm isShown={this.state.addFood} passedDownAddFood={oneFood => this.addNewFood(oneFood)} />
-      </div>
-        {this.state.allFoods.map((oneFood, index) => {
-          return <FoodBox key={index} {...oneFood}/>
-        })} 
+        <h1>IronNutrition</h1>
+          <div className="container">
+            <button onClick={() => this.addFoodForm()}>Add new food</button>
+            <FoodSearch passedDownSearchFood={searchedFood => this.searchFood(searchedFood)} />
+            <FoodForm isShown={this.state.addFood} passedDownAddFood={oneFood => this.addNewFood(oneFood)} />
+          </div>
+        <div className="container">
+          <div className="list-food">
+            {this.state.allFoods.map((oneFood, index) => {
+              return <FoodBox key={index} {...oneFood} passedDownAddFoodToList={(oneFoodQuantity, oneFoodName, oneFoodCalories) => this.addFoodToList(oneFoodQuantity, oneFoodName, oneFoodCalories)}/>
+            })}
+          </div>
+          <div>
+            <h3>Today's foods</h3>
+            {console.log(this.state.foodList)}
+              <ul>
+                {this.state.foodList.map((oneFood, index) => {
+                  return <li key={index}>{oneFood.quantity} {oneFood.name} - {oneFood.calories * oneFood.quantity} calories</li>
+                })} 
+              </ul>
+                {/* <p>Total: {oneFood.calories * oneFood.quantity}</p> */}
+          </div> 
+        </div>
       </div>
     );
   }

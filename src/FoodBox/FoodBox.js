@@ -12,42 +12,49 @@ class FoodBox extends Component {
         );
     };
 
+    handleFormSubmit = event => {
+        const {name, calories} = this.props;
+        event.preventDefault();
+        this.props.passedDownAddFoodToList(this.state.quantity, name, calories);
+    };
+
     render() {
         return (
         <div className="box">
-            <article className="media">
-                <div className="media-left">
-                    <figure className="image is-64x64">
-                        <img src={this.props.image} alt="food"/>
-                    </figure>
-                </div>
-                <div className="media-content">
-                    <div className="content">
-                        <p>
-                            <strong>{this.props.name}</strong> <br />
-                            <small>{this.props.calories} cal</small>
-                        </p>
+            <form onSubmit={event => this.handleFormSubmit(event)}>
+                <article className="media">
+                    <div className="media-left">
+                        <figure className="image is-64x64">
+                            <img src={this.props.image} alt="food"/>
+                        </figure>
                     </div>
-                </div>
-                <div className="media-right">
-                    <div className="field has-addons">
-                        <div className="control">
-                            <input
-                                className="input"
-                                name={this.props.quantity}
-                                type="number"  
-                                value="0"
-                                onChange={event => this.onChangeHandler(event)}
-                            />
-                        </div>
-                        <div className="control">
-                            <button className="button is-info">
-                                +
-                            </button>
+                    <div className="media-content">
+                        <div className="content">
+                            <p>
+                                <strong>{this.props.name}</strong> <br />
+                                <small>{this.props.calories} cal</small>
+                            </p>
                         </div>
                     </div>
-                </div>
-            </article>
+                    <div className="media-right">
+                        <div className="field has-addons">
+                            <div className="control">
+                                <input
+                                    className="input"
+                                    name="quantity"
+                                    type="number"  
+                                    onChange={event => this.onChangeHandler(event)}
+                                />
+                            </div>
+                            <div className="control">
+                                <button className="button is-info">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </form>
         </div>
         )
     }   
