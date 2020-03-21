@@ -49,15 +49,11 @@ class App extends Component {
     }
   }
 
-  addFoodToList = (foodQuantityForList, foodNameForList, foodCaloriesForList) => {
-    let foodListCopy = [];
-    foodListCopy.push({
-      name: foodNameForList,
-      calories: foodCaloriesForList,
-      quantity: foodQuantityForList
-    })
+  addFoodToList = (foodPassed) => {
+    let foodCopyList = [...this.state.foodList];
+    foodCopyList.push(foodPassed)
     this.setState({
-      foodList: foodListCopy
+      foodList: foodCopyList
     })
   }
 
@@ -78,13 +74,11 @@ class App extends Component {
           </div>
           <div>
             <h3>Today's foods</h3>
-            {console.log(this.state.foodList)}
               <ul>
                 {this.state.foodList.map((oneFood, index) => {
                   return <li key={index}>{oneFood.quantity} {oneFood.name} - {oneFood.calories * oneFood.quantity} calories</li>
                 })} 
               </ul>
-                {/* <p>Total: {oneFood.calories * oneFood.quantity}</p> */}
           </div> 
         </div>
       </div>

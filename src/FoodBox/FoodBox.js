@@ -7,15 +7,18 @@ class FoodBox extends Component {
     onChangeHandler = event => {
         const { name, value } = event.target;
         this.setState(
-          { [name]: value },
-          () => console.log(this.state)
+          { [name]: value }
         );
     };
 
     handleFormSubmit = event => {
         const {name, calories} = this.props;
         event.preventDefault();
-        this.props.passedDownAddFoodToList(this.state.quantity, name, calories);
+        let foodTobePassed = {
+            name: name, 
+            calories: calories, 
+            quantity: this.state.quantity}
+        this.props.passedDownAddFoodToList(foodTobePassed);
     };
 
     render() {
